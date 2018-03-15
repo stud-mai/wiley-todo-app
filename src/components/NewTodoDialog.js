@@ -28,7 +28,7 @@ export default class NewTodoDialog extends React.PureComponent {
 	}
 
 	render(){
-		const { isOpen, actions: {updateTextField} } = this.props;
+		const { isOpen = false, actions: {updateTextField} } = this.props;
 		return (
 			<Dialog
 				actions={this.renderButtons()}

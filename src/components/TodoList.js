@@ -21,7 +21,7 @@ export default class TodoList extends React.PureComponent {
                     className={isDone ? 'list-item-checked' : ''}
                     primaryText={title}
                     secondaryText={description}
-
+                    onClick={()=>{}}
                     leftCheckbox={ <Checkbox checked={isDone} onCheck={() => markTodo(i)} /> }
                     rightIconButton={removeButton}
                 />

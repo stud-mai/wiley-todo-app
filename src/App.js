@@ -27,7 +27,7 @@ const App = (props) => {
 			/>
 		</div>
 	);
-}
+};
 
 const mapStateToProps = (state) => ({...state});
 const mapDispatchToProps = (dispatch) => ({
