@@ -5,11 +5,18 @@ import FlatButton from 'material-ui/FlatButton';
 
 export default class NewTodoDialog extends React.PureComponent {
 	renderButtons = () => {
-		const { title, description, actions: {closeDialog, addNewTodo} } = this.props;
+		const { dialog, actions } = this.props;
+		const { title, description, isEditing, editingTodoId} = dialog;
+		const { closeDialog, addNewTodo, saveTodo } = actions;
 		const addTodoAndCloseDialog = () => {
-			addNewTodo(title, description);
+			if (isEditing){
+				saveTodo(title, description, editingTodoId);
+			} else {
+				addNewTodo(title, description);
+			}
 			closeDialog();
 		};
+
 		return [
 			<FlatButton
 				key="cancel-button"
@@ -19,7 +26,7 @@ export default class NewTodoDialog extends React.PureComponent {
 			/>,
 			<FlatButton
 				key="add-button"
-				label="Add"
+				label={isEditing ? "Save" : "Add"}
 				primary={true}
 				keyboardFocused={true}
 				onClick={addTodoAndCloseDialog}
@@ -28,18 +35,21 @@ export default class NewTodoDialog extends React.PureComponent {
 	}
 
 	render(){
-		const { isOpen = false, actions: {updateTextField} } = this.props;
+		const { dialog, actions: {updateTextField} } = this.props;
+		const { title, description, isEditing, isDialogOpen = false} = dialog;
+
 		return (
 			<Dialog
 				actions={this.renderButtons()}
-				title="New Todo"
+				title={isEditing ? "Edit Todo" : "New Todo"}
 				modal={false}
-				open={isOpen}
+				open={isDialogOpen}
 			>
 				<TextField
 					hintText="Add Todo Title"
 					floatingLabelText="Todo Title"
 					name="title"
+					value={title}
 					onChange={(e, newValue) => updateTextField(e.target.name, newValue)}
 				/>
 				<br/>
@@ -47,6 +57,7 @@ export default class NewTodoDialog extends React.PureComponent {
 					hintText="Add Todo Description"
 					floatingLabelText="Todo Description"
 					name="description"
+					value={description}
 					onChange={(e, newValue) => updateTextField(e.target.name, newValue)}
 				/>
 			</Dialog>

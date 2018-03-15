@@ -22,6 +22,16 @@ function dialog(state = {}, action){
         case actionTypes.CLOSE_DIALOG:
             return {};
 
+        case actionTypes.EDIT_TODO:
+            const {title, description, editingTodoId} = payload;
+            return {
+                isDialogOpen: true,
+                isEditing: true,
+                title,
+                description,
+                editingTodoId,
+            }
+
         default:
             return state;
     }
@@ -34,6 +44,15 @@ function todos(state = [], action){
         case actionTypes.ADD_NEW_TODO:
             const newTodo = { ...payload, isDone: false };
             return [...state, newTodo];
+
+        case actionTypes.SAVE_TODO:
+            const {title, description, editingTodoId} = payload;
+            const editedTodo = {
+                ...state[editingTodoId],
+                title,
+                description,
+            };
+            return R.update(editingTodoId, editedTodo, state);
 
         case actionTypes.REMOVE_TODO:
             return [

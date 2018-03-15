@@ -9,7 +9,6 @@ import * as actions from './actions';
 
 const App = (props) => {
 	const {dialog, todos, actions} = props;
-	const {isDialogOpen, title, description} = dialog;
 
 	return (
 		<div>
@@ -20,9 +19,7 @@ const App = (props) => {
 				actions={actions}
 			/>
 			<NewTodoDialog
-				isOpen={isDialogOpen}
-				title={title}
-				description={description}
+				dialog={dialog}
 				actions={actions}
 			/>
 		</div>

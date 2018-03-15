@@ -23,6 +23,28 @@ export const addNewTodo = (title, description) => {
     }
 }
 
+export const editTodo = (title, description, editingTodoId) => {
+    return {
+        type: actionTypes.EDIT_TODO,
+        payload: {
+            title,
+            description,
+            editingTodoId,
+        }
+    }
+}
+
+export const saveTodo = (title, description, editingTodoId) => {
+    return {
+        type: actionTypes.SAVE_TODO,
+        payload: {
+            title,
+            description,
+            editingTodoId,
+        }
+    }
+}
+
 export const removeTodo = (id) => {
     return {
         type: actionTypes.REMOVE_TODO,
