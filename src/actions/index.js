@@ -2,6 +2,7 @@ import * as actionTypes from './constants';
 
 export const openDialog = () => ({type: actionTypes.OPEN_DIALOG});
 export const closeDialog = () => ({type: actionTypes.CLOSE_DIALOG});
+export const validateFields = () => ({type: actionTypes.VALIDATE_FIELDS});
 
 export const updateTextField = (fieldName, value) => {
     return {

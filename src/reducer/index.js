@@ -2,16 +2,46 @@ import { combineReducers } from 'redux';
 import * as R from 'ramda';
 import * as actionTypes from '../actions/constants';
 
+const fieldsToValidate = ['title', 'description'];
+const validate = (state) => {
+    const validation = fieldsToValidate.reduce((acc, fieldName) => {
+        if (R.isEmpty(state[fieldName]) || R.isNil(state[fieldName])){
+            return {
+                ...acc,
+                [fieldName]: {errMsg: 'This field is required', valid: false}
+            }
+        }
+        return {
+            ...acc,
+            [fieldName]: {errMsg: '', valid: true}
+        };
+    }, {});
+    const isValid = R.compose(
+        R.all(R.propEq('valid', true)),
+        R.values
+    )(validation);
+
+    return {
+        ...state,
+        validation,
+        isValid,
+    }
+}
+
 function dialog(state = {}, action){
     const {type, payload} = action;
 
     switch(type){
-        case actionTypes.UPDATE_FIELD:
+        case actionTypes.UPDATE_FIELD: {
             const {fieldName, value} = payload;
             return {
                 ...state,
                 [fieldName]: value
             };
+        }
+
+        case actionTypes.VALIDATE_FIELDS:
+            return validate(state);
 
         case actionTypes.OPEN_DIALOG:
             return {

@@ -6,6 +6,15 @@ body {
   text-decoration: line-through;
 }
 
+.menu-item {
+  display: flex;
+  align-items: center;
+}
+
+.menu-item span {
+  padding-left: 10px;
+}
+
 .App {
   text-align: center;
 }

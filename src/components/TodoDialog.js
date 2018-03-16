@@ -1,21 +1,28 @@
 import * as React from 'react';
+import * as R from 'ramda';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 
 export default class TodoDialog extends React.PureComponent {
-	renderButtons = () => {
-		const { dialog, actions } = this.props;
-		const { title, description, isEditing, editingTodoId} = dialog;
+	componentWillReceiveProps(nextProps){
+		const { dialog, actions } = nextProps;
+		const { title, description, isValid, isEditing, editingTodoId } = dialog;
 		const { closeDialog, addNewTodo, saveTodo } = actions;
-		const fillInTodoAndCloseDialog = () => {
+
+		if (isValid) {
 			if (isEditing){
 				saveTodo(title, description, editingTodoId);
 			} else {
 				addNewTodo(title, description);
 			}
 			closeDialog();
-		};
+		}
+	}
+
+	renderButtons = () => {
+		const { dialog: {isEditing}, actions } = this.props;
+		const { closeDialog, validateFields } = actions;
 
 		return [
 			<FlatButton
@@ -29,14 +36,14 @@ export default class TodoDialog extends React.PureComponent {
 				label={isEditing ? "Save" : "Add"}
 				primary={true}
 				keyboardFocused={true}
-				onClick={fillInTodoAndCloseDialog}
+				onClick={validateFields}
 			/>,
 		]
 	}
 
 	render(){
 		const { dialog, actions: {updateTextField} } = this.props;
-		const { title = '', description = '', isEditing, isDialogOpen = false} = dialog;
+		const { title = '', description = '', isEditing, isDialogOpen = false, validation = {} } = dialog;
 
 		return (
 			<Dialog
@@ -48,6 +55,7 @@ export default class TodoDialog extends React.PureComponent {
 				<TextField
 					hintText="Add Todo Title"
 					floatingLabelText="Todo Title"
+					errorText={R.path(['title', 'errMsg'], validation)}
 					name="title"
 					value={title}
 					onChange={(e, newValue) => updateTextField(e.target.name, newValue)}
@@ -56,6 +64,7 @@ export default class TodoDialog extends React.PureComponent {
 				<TextField
 					hintText="Add Todo Description"
 					floatingLabelText="Todo Description"
+					errorText={R.path(['description', 'errMsg'], validation)}
 					name="description"
 					value={description}
 					onChange={(e, newValue) => updateTextField(e.target.name, newValue)}

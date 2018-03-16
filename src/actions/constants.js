@@ -8,4 +8,5 @@ export const MARK_TODO = 'MARK_TODO';
 export const REMOVE_TODO = 'REMOVE_TODO';
 
 export const UPDATE_FIELD = 'UPDATE_FIELD';
+export const VALIDATE_FIELDS = 'VALIDATE_FIELDS';
 
