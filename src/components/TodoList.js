@@ -11,8 +11,8 @@ export default class TodoList extends React.PureComponent {
     renderTodos = () => {
         const {todos, actions} = this.props;
         const {removeTodo, markTodo, editTodo} = actions;
-        //const sortedTodos = todos.sort((a, b) => +(a.value > b.value) || +(a.value === b.value) - 1).reverse();
-        const todoList = todos.map((todo, i) => {
+        const sortedTodos = todos.sort((a, b) => +(a.title > b.title) || +(a.title === b.title) - 1).reverse();
+        const todoList = sortedTodos.map((todo, i) => {
             const {title, description, isDone} = todo;
             const rightButtons = (
                 <div>
