@@ -5,11 +5,11 @@ import { Provider } from 'react-redux';
 import { createLogger } from 'redux-logger';
 import throttle from 'lodash.throttle';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import App from './App';
+import App from './containers/App';
 import appReducer from './reducer';
 import { saveState, loadState } from './persistState';
 
-import './App.css';
+import './style.css';
 
 const loggerMiddleware = createLogger();
 const persistedState = loadState();

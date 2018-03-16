@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import * as actionTypes from '../actions/constants';
 import * as R from 'ramda';
+import * as actionTypes from '../actions/constants';
 
 function dialog(state = {}, action){
     const {type, payload} = action;
@@ -55,10 +55,7 @@ function todos(state = [], action){
             return R.update(editingTodoId, editedTodo, state);
 
         case actionTypes.REMOVE_TODO:
-            return [
-                ...state.slice(0, payload),
-                ...state.slice(payload + 1),
-            ];
+            return R.remove(payload, 1, state);
 
         case actionTypes.MARK_TODO:
             const markedTodo = {

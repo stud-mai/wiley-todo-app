@@ -3,12 +3,12 @@ import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 
-export default class NewTodoDialog extends React.PureComponent {
+export default class TodoDialog extends React.PureComponent {
 	renderButtons = () => {
 		const { dialog, actions } = this.props;
 		const { title, description, isEditing, editingTodoId} = dialog;
 		const { closeDialog, addNewTodo, saveTodo } = actions;
-		const addTodoAndCloseDialog = () => {
+		const fillInTodoAndCloseDialog = () => {
 			if (isEditing){
 				saveTodo(title, description, editingTodoId);
 			} else {
@@ -29,14 +29,14 @@ export default class NewTodoDialog extends React.PureComponent {
 				label={isEditing ? "Save" : "Add"}
 				primary={true}
 				keyboardFocused={true}
-				onClick={addTodoAndCloseDialog}
+				onClick={fillInTodoAndCloseDialog}
 			/>,
 		]
 	}
 
 	render(){
 		const { dialog, actions: {updateTextField} } = this.props;
-		const { title, description, isEditing, isDialogOpen = false} = dialog;
+		const { title = '', description = '', isEditing, isDialogOpen = false} = dialog;
 
 		return (
 			<Dialog

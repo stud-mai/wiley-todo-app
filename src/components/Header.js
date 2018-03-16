@@ -6,17 +6,17 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 const Header = (props) => {
     return (
         <Toolbar>
-          <ToolbarGroup>
-            <ToolbarTitle text="Add New Todo" />
-          </ToolbarGroup>
-          <ToolbarGroup>
-            <FloatingActionButton
-                mini={true}
-                onClick={props.addNewTodo}
-            >
-              <ContentAdd />
-            </FloatingActionButton>
-          </ToolbarGroup>
+			<ToolbarGroup>
+				<ToolbarTitle text="Add New Todo" />
+			</ToolbarGroup>
+			<ToolbarGroup>
+				<FloatingActionButton
+					mini={true}
+					onClick={props.addNewTodo}
+				>
+				<ContentAdd />
+				</FloatingActionButton>
+			</ToolbarGroup>
         </Toolbar>
     )
 };
